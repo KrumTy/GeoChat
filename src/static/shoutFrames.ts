@@ -108,6 +108,170 @@ const shoutFrames: ShoutFrame[] = [
       marginTop: 20,
     },
   },
+  {
+    id: 11,
+    source: ShoutFrames[11],
+    textStyle: {
+      marginLeft: 60,
+      marginRight: 45,
+      marginTop: 20,
+    },
+  },
+  {
+    id: 12,
+    source: ShoutFrames[12],
+    textStyle: {
+      marginLeft: 60,
+      marginRight: 45,
+      marginTop: 10,
+    },
+  },
+  {
+    id: 13,
+    source: ShoutFrames[13],
+    textStyle: {
+      color: 'white',
+      marginLeft: 60,
+      marginRight: 45,
+      marginTop: 20,
+    },
+  },
+  {
+    id: 14,
+    source: ShoutFrames[14],
+    textStyle: {
+      marginLeft: 60,
+      marginRight: 45,
+      marginTop: 0,
+    },
+  },
+  {
+    id: 15,
+    source: ShoutFrames[15],
+    textStyle: {
+      marginLeft: 60,
+      marginRight: 45,
+      marginTop: 20,
+    },
+  },
+  {
+    id: 16,
+    source: ShoutFrames[16],
+    textStyle: {
+      marginLeft: 60,
+      marginRight: 45,
+      marginTop: 20,
+    },
+  },
+  {
+    id: 17,
+    source: ShoutFrames[17],
+    textStyle: {
+      marginLeft: 72,
+      marginRight: 45,
+      marginTop: 20,
+    },
+  },
+  {
+    id: 18,
+    source: ShoutFrames[18],
+    textStyle: {
+      marginLeft: 60,
+      marginRight: 45,
+      marginTop: 20,
+    },
+  },
+  {
+    id: 19,
+    source: ShoutFrames[19],
+    textStyle: {
+      marginLeft: 72,
+      marginRight: 45,
+      marginTop: 20,
+    },
+  },
+  {
+    id: 20,
+    source: ShoutFrames[20],
+    textStyle: {
+      marginLeft: 65,
+      marginRight: 45,
+      marginTop: 10,
+    },
+  },
+  {
+    id: 21,
+    source: ShoutFrames[21],
+    textStyle: {
+      marginLeft: 60,
+      marginRight: 45,
+      marginTop: 10,
+    },
+  },
+  {
+    id: 22,
+    source: ShoutFrames[22],
+    textStyle: {
+      marginLeft: 65,
+      marginRight: 45,
+      marginTop: 20,
+    },
+  },
+  {
+    id: 23,
+    source: ShoutFrames[23],
+    textStyle: {
+      marginLeft: 60,
+      marginRight: 45,
+      marginTop: 20,
+    },
+  },
+  {
+    id: 24,
+    source: ShoutFrames[24],
+    textStyle: {
+      marginLeft: 60,
+      marginRight: 45,
+      marginTop: 10,
+    },
+  },
+  {
+    id: 25,
+    source: ShoutFrames[25],
+    textStyle: {
+      marginLeft: 65,
+      marginRight: 45,
+      marginTop: 10,
+    },
+  },
+  {
+    id: 26,
+    source: ShoutFrames[26],
+    textStyle: {
+      color: 'pink',
+      marginLeft: 82,
+      marginRight: 45,
+      marginTop: 10,
+    },
+  },
+  {
+    id: 27,
+    source: ShoutFrames[27],
+    textStyle: {
+      marginLeft: 65,
+      marginRight: 45,
+      marginTop: 20,
+    },
+  },
+  {
+    id: 28,
+    source: ShoutFrames[28],
+    textStyle: {
+      marginLeft: 80,
+      marginRight: 45,
+      marginTop: 10,
+    },
+  },
 ];
 
 export default shoutFrames;

@@ -51,6 +51,7 @@ export default ({onClose}: ShoutCarouselProps) => {
   return (
     <KeyboardAvoidingView
       style={styles.container}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 40}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <LightBlurView />
       <Carousel
@@ -118,7 +119,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   thunderButton: {
-    bottom: 80,
+    bottom: 50,
   },
   closeButton: {
     position: 'absolute',
@@ -130,6 +131,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     height: 40,
     fontWeight: 'bold',
-    backgroundColor: 'blue',
   },
 });

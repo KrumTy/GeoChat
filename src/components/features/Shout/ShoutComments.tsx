@@ -53,6 +53,7 @@ export default ({onClose, shoutId}: Props) => {
   return (
     <KeyboardAvoidingView
       style={styles.container}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 40}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <LightBlurView />
       <View style={styles.commentsList}>
@@ -107,6 +108,9 @@ export default ({onClose, shoutId}: Props) => {
                 color="#FFF"
                 style={styles.messageIcon}
                 onPress={() => {
+                  if (!commentText) {
+                    return;
+                  }
                   const now = Date.now();
                   LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
                   dispatch(
@@ -201,5 +205,6 @@ const styles = StyleSheet.create({
   },
   commentsListSection: {
     flex: 1,
+    flexGrow: 1.5,
   },
 });
