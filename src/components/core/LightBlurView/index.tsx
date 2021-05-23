@@ -5,12 +5,13 @@ import {BlurView} from '@react-native-community/blur';
 type Props = {
   children?: React.ReactNode;
   style?: StyleProp<ViewStyle>;
+  blurType?: 'dark' | 'light';
 };
 
-export default ({children, style}: Props) => (
+export default ({children, style, blurType = 'dark'}: Props) => (
   <BlurView
     style={[styles.absolute, style]}
-    blurType="light"
+    blurType={blurType}
     blurAmount={5}
     reducedTransparencyFallbackColor="white"
     children={children}
@@ -19,6 +20,8 @@ export default ({children, style}: Props) => (
 
 const styles = StyleSheet.create({
   absolute: {
+    justifyContent: 'center',
+    alignItems: 'center',
     position: 'absolute',
     top: 0,
     left: 0,

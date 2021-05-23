@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 
 import {useAppSelector, selectShoutPoints} from '../../../state';
 import LightBlurView from '../../core/LightBlurView';
@@ -12,21 +12,23 @@ export default () => {
   }
 
   return (
-    <LightBlurView style={styles.container}>
+    <View style={styles.container}>
+      <LightBlurView blurType="light"></LightBlurView>
       <Text style={styles.text}>{shoutPoints}</Text>
-    </LightBlurView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    top: 50,
-    right: 20,
+    top: 40,
+    right: 10,
     bottom: undefined,
     left: undefined,
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'hidden',
     width: 60,
     height: 60,
     borderRadius: 60 / 2,

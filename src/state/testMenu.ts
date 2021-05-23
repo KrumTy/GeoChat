@@ -1,4 +1,4 @@
-import {Alert} from 'react-native';
+import {Alert, Platform} from 'react-native';
 import {deleteDataByKey, setDataByKey} from './localStorage';
 import {getCommentsStorageKey, resetComments} from './reducers/commentsReducer';
 import {
@@ -24,7 +24,22 @@ const message = `Type the number of the command you wish to execute
 `;
 
 export default {
-  launch: () => {
+  launch: async () => {
+    // Execute commands 1. and 3. on Android
+    if (Platform.OS === 'android') {
+      const state = store.getState();
+      const userId = state.user.value.id;
+      const shouts = store.getState().shouts.value;
+      for (let shout of shouts) {
+        await deleteDataByKey(getCommentsStorageKey(shout.id));
+      }
+      await deleteDataByKey(getShoutsStorageKey());
+      store.dispatch(resetComments());
+      store.dispatch(loadShouts([]));
+      store.dispatch(resetShoutPoints(userId));
+      return;
+    }
+
     Alert.prompt(title, message, async text => {
       const commandId = parseInt(text);
       const state = store.getState();

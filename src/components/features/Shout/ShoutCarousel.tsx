@@ -6,6 +6,7 @@ import {
   ImageBackground,
   KeyboardAvoidingView,
   Platform,
+  Keyboard,
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
@@ -96,7 +97,7 @@ export default ({onClose}: ShoutCarouselProps) => {
               coordinates,
             }),
           );
-
+          Keyboard.dismiss();
           resetShout();
         }}
       />
@@ -117,17 +118,18 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   thunderButton: {
-    bottom: 50,
+    bottom: 80,
   },
   closeButton: {
     position: 'absolute',
-    top: 60,
-    right: 20,
+    top: 50,
+    right: 30,
     alignItems: 'flex-end',
   },
   shoutInput: {
     fontSize: 16,
     height: 40,
     fontWeight: 'bold',
+    backgroundColor: 'blue',
   },
 });

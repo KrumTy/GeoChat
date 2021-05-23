@@ -23,6 +23,7 @@ import {
   loadShouts,
   selectUser,
   setCoordinates,
+  // selectCoordinates,
 } from '../../../state';
 
 import MenuButton from '../../core/MenuButton';
@@ -34,9 +35,10 @@ enum Overlay {
 }
 
 export default function () {
-  const [overlay, setOverlay] = useState(Overlay.ShoutIdle);
   const user = useAppSelector(selectUser);
   const mapElement = useRef<MapboxGL.MapView>(null);
+  // const coordinates = useAppSelector(selectCoordinates);
+  const [overlay, setOverlay] = useState(Overlay.ShoutIdle);
   const [selectedShoutId, setSelectedShoutId] = useState<number>();
   const [zoomLevel, setZoomLevel] = useState(CONFIG.DEFAULT_ZOOM_LEVEL);
   const disableShoutMarkers = zoomLevel < CONFIG.MARKER_MIN_ZOOM_LEVEL;
@@ -46,7 +48,8 @@ export default function () {
   useEffect(() => {
     MapboxGL.setAccessToken(CONFIG.MAPBOXGL_API_KEY);
     MapboxGL.locationManager.start();
-    dispatch(loadShouts([42.0, 69]));
+    // Ideally the API should return shouts within radius X of user's coordinates
+    dispatch(loadShouts([]));
 
     if (Platform.OS === 'android') {
       if (UIManager.setLayoutAnimationEnabledExperimental) {
@@ -65,6 +68,7 @@ export default function () {
   return (
     <View style={styles.page}>
       <MapboxGL.MapView
+        renderToHardwareTextureAndroid
         onRegionDidChange={async () => {
           const newZoomLevel = await mapElement.current?.getZoom();
           if (newZoomLevel) {

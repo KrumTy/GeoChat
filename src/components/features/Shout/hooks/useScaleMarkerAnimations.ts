@@ -1,9 +1,16 @@
 import {useEffect, useRef} from 'react';
-import {Animated} from 'react-native';
+import {Animated, Platform} from 'react-native';
 
 const getScale = (zoomLevel: number) => 1 + Math.max(0, (zoomLevel - 14) / 5);
 
 export default (zoomLevel = 14) => {
+  if (Platform.OS === 'android') {
+    return {
+      zoomAnim: 1,
+      fadeAnim: 1,
+    };
+  }
+
   const scale = getScale(zoomLevel);
   const zoomAnim = useRef(new Animated.Value(scale)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;

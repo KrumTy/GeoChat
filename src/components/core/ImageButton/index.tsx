@@ -18,8 +18,10 @@ type Props = {
 
 export default ({style, source, aspectRatio = 1, onPress}: Props) => (
   <View style={[styles.container, style]}>
-    <TouchableOpacity style={[styles.touchableArea]} onPress={onPress}>
-      <Image style={{transform: [{scale: aspectRatio}]}} source={source} />
+    <TouchableOpacity
+      style={[styles.touchableArea, {transform: [{scale: aspectRatio}]}]}
+      onPress={() => onPress()}>
+      <Image source={source} />
     </TouchableOpacity>
   </View>
 );
@@ -29,7 +31,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   touchableArea: {
-    width: 0,
+    alignSelf: 'center',
     position: 'absolute',
     alignItems: 'center',
   },
