@@ -1,9 +1,8 @@
 import React from 'react';
-
 import {StyleSheet} from 'react-native';
+
 import {Buttons} from '../../../images';
 import {TestMenu} from '../../../state';
-
 import ImageButton from '../ImageButton';
 
 export default () => (

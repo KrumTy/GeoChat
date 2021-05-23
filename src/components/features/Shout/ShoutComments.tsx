@@ -16,17 +16,19 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import CONFIG from '../../../config';
-import {useAppDispatch, useAppSelector} from '../../../state';
-import ImageButton from '../../core/ImageButton';
-import {Buttons} from '../../../images';
 import {
+  useAppDispatch,
+  useAppSelector,
   selectComments,
   addShoutComment,
   loadShoutComments,
   resetComments,
-} from '../../../state/reducers/commentsReducer';
-import {selectUser} from '../../../state/reducers/userSlice';
+  selectUser,
+} from '../../../state';
+import {Buttons} from '../../../images';
 import {formatCommentTimestamp} from '../../../utils';
+
+import ImageButton from '../../core/ImageButton';
 import LightBlurView from '../../core/LightBlurView';
 
 type Props = {

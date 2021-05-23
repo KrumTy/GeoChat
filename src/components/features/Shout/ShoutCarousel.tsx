@@ -9,19 +9,19 @@ import {
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
-import {useAppDispatch, useAppSelector} from '../../../state';
-import {addShout} from '../../../state/reducers/shoutsSlice';
-import {selectCoordinates, selectUser} from '../../../state/reducers/userSlice';
-
+import shoutFrames, {ShoutFrame} from '../../../static/shoutFrames';
+import {
+  useAppDispatch,
+  useAppSelector,
+  addShout,
+  selectCoordinates,
+  selectUser,
+} from '../../../state';
 import CONFIG from '../../../config';
+import {Buttons} from '../../../images';
 
 import LightBlurView from '../../core/LightBlurView';
-
 import ImageButton from '../../core/ImageButton';
-
-import shoutFrames, {ShoutFrame} from '../../../static/shoutFrames';
-
-import {Buttons} from '../../../images';
 
 const {ButtonX, ButtonThunder} = Buttons;
 

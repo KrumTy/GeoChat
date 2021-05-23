@@ -1,8 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text} from 'react-native';
 
-import {useAppSelector} from '../../../state';
-import {selectShoutPoints} from '../../../state/reducers/shoutsSlice';
+import {useAppSelector, selectShoutPoints} from '../../../state';
 import LightBlurView from '../../core/LightBlurView';
 
 export default () => {

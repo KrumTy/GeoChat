@@ -1,6 +1,6 @@
 import {configureStore} from '@reduxjs/toolkit';
-import shoutsReducer from './reducers/shoutsSlice';
-import userReducer from './reducers/userSlice';
+import shoutsReducer from './reducers/shoutsReducer';
+import userReducer from './reducers/userReducer';
 import commentsReducer from './reducers/commentsReducer';
 
 export const store = configureStore({

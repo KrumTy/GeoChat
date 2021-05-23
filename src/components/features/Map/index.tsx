@@ -10,21 +10,22 @@ import {
   ShoutButton,
 } from '../Shout';
 
+import CONFIG from '../../../config';
 import {getRandomElement} from '../../../utils';
 import shoutFrames from '../../../static/shoutFrames';
 import shoutMessages from '../../../static/shoutMessages';
-import {useAppSelector, useAppDispatch} from '../../../state';
 import {
+  useAppSelector,
+  useAppDispatch,
   addShout,
   selectShouts,
   loadShoutPoints,
   loadShouts,
-} from '../../../state/reducers/shoutsSlice';
-import CONFIG from '../../../config';
+  selectUser,
+  setCoordinates,
+} from '../../../state';
 
 import MenuButton from '../../core/MenuButton';
-
-import {selectUser, setCoordinates} from '../../../state/reducers/userSlice';
 
 enum Overlay {
   ShoutIdle,

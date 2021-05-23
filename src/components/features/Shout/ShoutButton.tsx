@@ -4,8 +4,7 @@ import {StyleSheet} from 'react-native';
 import ImageButton from '../../core/ImageButton';
 
 import {Buttons} from '../../../images';
-import {useAppSelector} from '../../../state';
-import {selectShoutPoints} from '../../../state/reducers/shoutsSlice';
+import {useAppSelector, selectShoutPoints} from '../../../state';
 
 type Props = {
   onPress: () => void;

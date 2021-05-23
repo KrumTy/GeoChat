@@ -5,8 +5,8 @@ import {
   getShoutsStorageKey,
   loadShouts,
   resetShoutPoints,
-} from './reducers/shoutsSlice';
-import {setUser} from './reducers/userSlice';
+} from './reducers/shoutsReducer';
+import {setUser} from './reducers/userReducer';
 import mockUsers from '../static/mockUsers';
 import {store} from './store';
 

@@ -1,4 +1,4 @@
-import {User} from '../state/reducers/userSlice';
+import {User} from '../state/reducers/userReducer';
 
 const mockUsers: User[] = [
   {
