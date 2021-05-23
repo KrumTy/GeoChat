@@ -11,12 +11,10 @@ export type Comment = {
   text: string;
 };
 
-// Define a type for the slice state
 interface ShoutsState {
   value: Comment[];
 }
 
-// Define the initial state using that type
 const initialState: ShoutsState = {
   value: [],
 };

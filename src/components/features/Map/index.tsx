@@ -24,7 +24,7 @@ import CONFIG from '../../../config';
 
 import MenuButton from '../../core/MenuButton';
 
-import {selectUser} from '../../../state/reducers/userSlice';
+import {selectUser, setCoordinates} from '../../../state/reducers/userSlice';
 
 enum Overlay {
   ShoutIdle,
@@ -90,11 +90,10 @@ export default function () {
         logoEnabled={false}
         compassEnabled={false}>
         <MapboxGL.Camera
-          // followZoomLevel={DEFAULT_ZOOM_LEVEL}
-          // followUserLocation
-          centerCoordinate={CONFIG.MAP_CENTER_COORDINATES}
+          // followZoomLevel={CONFIG.DEFAULT_ZOOM_LEVEL}
+          followUserLocation
+          // centerCoordinate={CONFIG.MAP_CENTER_COORDINATES}
           zoomLevel={CONFIG.DEFAULT_ZOOM_LEVEL}
-          // bounds={{ne: [], sw: []}}
         />
         {!disableShoutMarkers &&
           shouts.map((s, i) => (
@@ -113,7 +112,16 @@ export default function () {
               />
             </MapboxGL.MarkerView>
           ))}
-        <MapboxGL.UserLocation />
+        <MapboxGL.UserLocation
+          visible={true}
+          onUpdate={location => {
+            const coords = [
+              location.coords.longitude,
+              location.coords.latitude,
+            ];
+            dispatch(setCoordinates(coords));
+          }}
+        />
       </MapboxGL.MapView>
       <MenuButton />
       <ShoutPoints />
@@ -121,11 +129,7 @@ export default function () {
         <ShoutButton onPress={() => setOverlay(Overlay.ShoutCarousel)} />
       )}
       {overlay === Overlay.ShoutCarousel && (
-        // TODO: send user coords
-        <ShoutCarousel
-          mapElementRef={mapElement}
-          onClose={() => setOverlay(Overlay.ShoutIdle)}
-        />
+        <ShoutCarousel onClose={() => setOverlay(Overlay.ShoutIdle)} />
       )}
       {overlay === Overlay.ShoutComments && selectedShoutId && (
         <ShoutComments

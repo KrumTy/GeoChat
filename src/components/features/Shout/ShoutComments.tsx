@@ -173,7 +173,6 @@ const styles = StyleSheet.create({
     flexGrow: 4,
   },
   messageBar: {
-    // paddingBottom: 20,
     flex: 1,
     height: 25,
     color: 'white',
@@ -184,9 +183,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   messageIcon: {
-    // flex: 1,
-    // width: "5%",
-    // width: 50,
     margin: 10,
   },
   messageAuthorAvatar: {
@@ -203,17 +199,5 @@ const styles = StyleSheet.create({
   },
   commentsListSection: {
     flex: 1,
-  },
-  text: {
-    color: 'grey',
-    fontWeight: 'bold',
-    fontSize: 30,
-  },
-  absolute: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
   },
 });

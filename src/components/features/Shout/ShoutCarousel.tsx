@@ -8,10 +8,10 @@ import {
   Platform,
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
-import MapboxGL from '@react-native-mapbox-gl/maps';
 
-import {useAppDispatch} from '../../../state';
+import {useAppDispatch, useAppSelector} from '../../../state';
 import {addShout} from '../../../state/reducers/shoutsSlice';
+import {selectCoordinates, selectUser} from '../../../state/reducers/userSlice';
 
 import CONFIG from '../../../config';
 
@@ -31,11 +31,12 @@ type ListItemProps = {
 };
 
 type ShoutCarouselProps = {
-  mapElementRef: React.RefObject<MapboxGL.MapView>;
   onClose: () => void;
 };
 
-export default ({mapElementRef, onClose}: ShoutCarouselProps) => {
+export default ({onClose}: ShoutCarouselProps) => {
+  const user = useAppSelector(selectUser);
+  const coordinates = useAppSelector(selectCoordinates);
   const [slideIndex, setSlideIndex] = useState(0);
   const [shoutText, setShoutText] = useState(CONFIG.DEFAULT_SHOUT);
   const dispatch = useAppDispatch();
@@ -52,7 +53,6 @@ export default ({mapElementRef, onClose}: ShoutCarouselProps) => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <LightBlurView />
       <Carousel
-        // ref={(c) => { this._carousel = c; }}
         data={shoutFrames}
         renderItem={({item, index}: ListItemProps) => (
           <View style={styles.slide}>
@@ -86,20 +86,16 @@ export default ({mapElementRef, onClose}: ShoutCarouselProps) => {
         source={ButtonThunder}
         aspectRatio={0.27}
         onPress={async () => {
-          const centerCoords = await mapElementRef.current?.getCenter();
-          // TODO: use user coords: https://github.com/react-native-mapbox-gl/maps/blob/master/example/src/examples/UserLocationChange.js
-
-          if (centerCoords) {
-            dispatch(
-              addShout({
-                id: Date.now(),
-                frameId: shoutFrames[slideIndex].id,
-                authorId: 0,
-                text: shoutText,
-                coordinates: centerCoords,
-              }),
-            );
-          }
+          // const centerCoords = await mapElementRef.current?.getCenter();
+          dispatch(
+            addShout({
+              id: Date.now(),
+              frameId: shoutFrames[slideIndex].id,
+              authorId: user.id,
+              text: shoutText,
+              coordinates,
+            }),
+          );
 
           resetShout();
         }}

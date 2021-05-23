@@ -25,5 +25,5 @@ export const ShoutFrames = [
   require('../images/Shouts/Tabeli_Export_0016_Pizza.png'),
   require('../images/Shouts/Tabeli_Export_0017_Pancakes.png'),
   require('../images/Shouts/Tabeli_Export_0018_Sushi.png'),
-  require('../images/Shouts/Tabeli_Export_0019_Helloween.png')
+  require('../images/Shouts/Tabeli_Export_0019_Helloween.png'),
 ];

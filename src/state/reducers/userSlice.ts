@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import type {RootState} from '../store';
+import mockUsers from '../../static/mockUsers';
 
 export type User = {
   id: number;
@@ -7,19 +8,14 @@ export type User = {
   avatarUrl: string;
 };
 
-// Define a type for the slice state
 interface UserState {
   value: User;
+  coordinates: number[];
 }
 
-// Define the initial state using that type
 const initialState: UserState = {
-  value: {
-    id: 1,
-    name: 'Test User 1',
-    avatarUrl:
-      'https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png',
-  },
+  value: {...mockUsers[0]},
+  coordinates: [0, 0],
 };
 
 export const userSlice = createSlice({
@@ -29,12 +25,15 @@ export const userSlice = createSlice({
     setUser: (state, action: PayloadAction<User>) => {
       state.value = action.payload;
     },
+    setCoordinates: (state, action: PayloadAction<number[]>) => {
+      state.coordinates = action.payload;
+    },
   },
 });
 
-export const {setUser} = userSlice.actions;
+export const {setUser, setCoordinates} = userSlice.actions;
 
-// Other code such as selectors can use the imported `RootState` type
 export const selectUser = (state: RootState) => state.user.value;
+export const selectCoordinates = (state: RootState) => state.user.coordinates;
 
 export default userSlice.reducer;

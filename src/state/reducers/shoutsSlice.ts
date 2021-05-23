@@ -5,7 +5,7 @@ import {getDataByKey, setDataByKey} from '../localStorage';
 export type Shout = {
   id: number;
   frameId: number;
-  authorId: number; // get avatar src from here
+  authorId: number;
   text: string;
   coordinates: number[];
 };
