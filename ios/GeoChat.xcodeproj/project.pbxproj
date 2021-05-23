@@ -11,9 +11,12 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		4CA61D58B73093D94C2EEEA4 /* libPods-GeoChat-GeoChatTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7DDDF84D506223F32CDDC21 /* libPods-GeoChat-GeoChatTests.a */; };
+		4C9ECB146109FBA8BD17F80F /* libPods-GeoChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 89A8C27D6726302FF80529CB /* libPods-GeoChat.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		CA21F0102A6150AF23EFD024 /* libPods-GeoChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E413648D9C0703AA5DC3A26 /* libPods-GeoChat.a */; };
+		8C0D00992657DAFC00BB2126 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 8C0D00982657DAFC00BB2126 /* assets */; };
+		8CB377D92656CDE8001EB75A /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 8CB377D82656CDE8001EB75A /* main.jsbundle */; };
+		8CB377DA2656CDE8001EB75A /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 8CB377D82656CDE8001EB75A /* main.jsbundle */; };
+		E087683481C0044B44250C5F /* libPods-GeoChat-GeoChatTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE7E3AD0622611F2C98D03DE /* libPods-GeoChat-GeoChatTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,19 +33,21 @@
 		00E356EE1AD99517003FC87E /* GeoChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GeoChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* GeoChatTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GeoChatTests.m; sourceTree = "<group>"; };
+		12DAC65AC71F1E2FFD0FC1FE /* Pods-GeoChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoChat.release.xcconfig"; path = "Target Support Files/Pods-GeoChat/Pods-GeoChat.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* GeoChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeoChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = GeoChat/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = GeoChat/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = GeoChat/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = GeoChat/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = GeoChat/main.m; sourceTree = "<group>"; };
-		179DDC96A733BE9CB3E98E31 /* Pods-GeoChat-GeoChatTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoChat-GeoChatTests.debug.xcconfig"; path = "Target Support Files/Pods-GeoChat-GeoChatTests/Pods-GeoChat-GeoChatTests.debug.xcconfig"; sourceTree = "<group>"; };
-		279985B004DFCD7CFF26AF35 /* Pods-GeoChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoChat.release.xcconfig"; path = "Target Support Files/Pods-GeoChat/Pods-GeoChat.release.xcconfig"; sourceTree = "<group>"; };
-		5E413648D9C0703AA5DC3A26 /* libPods-GeoChat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GeoChat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C477FF691F3D836B81349E9 /* Pods-GeoChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoChat.debug.xcconfig"; path = "Target Support Files/Pods-GeoChat/Pods-GeoChat.debug.xcconfig"; sourceTree = "<group>"; };
+		17AC7263B881F1F9A944BD79 /* Pods-GeoChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoChat.debug.xcconfig"; path = "Target Support Files/Pods-GeoChat/Pods-GeoChat.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = GeoChat/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		82625D16141FDE0C8336CAE1 /* Pods-GeoChat-GeoChatTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoChat-GeoChatTests.release.xcconfig"; path = "Target Support Files/Pods-GeoChat-GeoChatTests/Pods-GeoChat-GeoChatTests.release.xcconfig"; sourceTree = "<group>"; };
-		A7DDDF84D506223F32CDDC21 /* libPods-GeoChat-GeoChatTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GeoChat-GeoChatTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		89A8C27D6726302FF80529CB /* libPods-GeoChat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GeoChat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C0D00982657DAFC00BB2126 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
+		8CB377D82656CDE8001EB75A /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		D7B1B7AC523251CB062B73ED /* Pods-GeoChat-GeoChatTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoChat-GeoChatTests.debug.xcconfig"; path = "Target Support Files/Pods-GeoChat-GeoChatTests/Pods-GeoChat-GeoChatTests.debug.xcconfig"; sourceTree = "<group>"; };
+		DE7E3AD0622611F2C98D03DE /* libPods-GeoChat-GeoChatTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GeoChat-GeoChatTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4062FBA1E6C32101119C92C /* Pods-GeoChat-GeoChatTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoChat-GeoChatTests.release.xcconfig"; path = "Target Support Files/Pods-GeoChat-GeoChatTests/Pods-GeoChat-GeoChatTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -51,7 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CA61D58B73093D94C2EEEA4 /* libPods-GeoChat-GeoChatTests.a in Frameworks */,
+				E087683481C0044B44250C5F /* libPods-GeoChat-GeoChatTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,7 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA21F0102A6150AF23EFD024 /* libPods-GeoChat.a in Frameworks */,
+				4C9ECB146109FBA8BD17F80F /* libPods-GeoChat.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +91,8 @@
 		13B07FAE1A68108700A75B9A /* GeoChat */ = {
 			isa = PBXGroup;
 			children = (
+				8C0D00982657DAFC00BB2126 /* assets */,
+				8CB377D82656CDE8001EB75A /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -100,8 +107,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5E413648D9C0703AA5DC3A26 /* libPods-GeoChat.a */,
-				A7DDDF84D506223F32CDDC21 /* libPods-GeoChat-GeoChatTests.a */,
+				89A8C27D6726302FF80529CB /* libPods-GeoChat.a */,
+				DE7E3AD0622611F2C98D03DE /* libPods-GeoChat-GeoChatTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -109,12 +116,11 @@
 		6F695FFC6EFD88E78F3EBFEE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				6C477FF691F3D836B81349E9 /* Pods-GeoChat.debug.xcconfig */,
-				279985B004DFCD7CFF26AF35 /* Pods-GeoChat.release.xcconfig */,
-				179DDC96A733BE9CB3E98E31 /* Pods-GeoChat-GeoChatTests.debug.xcconfig */,
-				82625D16141FDE0C8336CAE1 /* Pods-GeoChat-GeoChatTests.release.xcconfig */,
+				17AC7263B881F1F9A944BD79 /* Pods-GeoChat.debug.xcconfig */,
+				12DAC65AC71F1E2FFD0FC1FE /* Pods-GeoChat.release.xcconfig */,
+				D7B1B7AC523251CB062B73ED /* Pods-GeoChat-GeoChatTests.debug.xcconfig */,
+				E4062FBA1E6C32101119C92C /* Pods-GeoChat-GeoChatTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -156,12 +162,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "GeoChatTests" */;
 			buildPhases = (
-				2610C7677C49CC35FD649570 /* [CP] Check Pods Manifest.lock */,
+				567D0468C2DD28122E349422 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				BB2895EA3A80C639CF15D596 /* [CP] Embed Pods Frameworks */,
-				807605070028E74AA6946C0D /* [CP] Copy Pods Resources */,
+				8C54E797B6FDD504F673B2F0 /* [CP] Embed Pods Frameworks */,
+				4916E4FB6C2B466D300EF540 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -177,14 +183,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "GeoChat" */;
 			buildPhases = (
-				6F27544B0C7C0C16A1E229BE /* [CP] Check Pods Manifest.lock */,
+				80DDC4C92C022A59BB906727 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				AB4597767FD6D6428282BFC7 /* [CP] Embed Pods Frameworks */,
-				4EC5AAD3FA9BEAE7053A9E55 /* [CP] Copy Pods Resources */,
+				83A1BE25289D8DE0096FD410 /* [CP] Embed Pods Frameworks */,
+				E6BDF062A2AC9995D6B01DB0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -236,6 +242,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CB377DA2656CDE8001EB75A /* main.jsbundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,6 +250,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CB377D92656CDE8001EB75A /* main.jsbundle in Resources */,
+				8C0D00992657DAFC00BB2126 /* assets in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
@@ -253,7 +262,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputPaths = (
@@ -261,11 +270,28 @@
 			name = "Bundle React Native code and images";
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		2610C7677C49CC35FD649570 /* [CP] Check Pods Manifest.lock */ = {
+		4916E4FB6C2B466D300EF540 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GeoChat-GeoChatTests/Pods-GeoChat-GeoChatTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GeoChat-GeoChatTests/Pods-GeoChat-GeoChatTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GeoChat-GeoChatTests/Pods-GeoChat-GeoChatTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		567D0468C2DD28122E349422 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -287,24 +313,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4EC5AAD3FA9BEAE7053A9E55 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GeoChat/Pods-GeoChat-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GeoChat/Pods-GeoChat-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GeoChat/Pods-GeoChat-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6F27544B0C7C0C16A1E229BE /* [CP] Check Pods Manifest.lock */ = {
+		80DDC4C92C022A59BB906727 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -326,24 +335,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		807605070028E74AA6946C0D /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GeoChat-GeoChatTests/Pods-GeoChat-GeoChatTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GeoChat-GeoChatTests/Pods-GeoChat-GeoChatTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GeoChat-GeoChatTests/Pods-GeoChat-GeoChatTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AB4597767FD6D6428282BFC7 /* [CP] Embed Pods Frameworks */ = {
+		83A1BE25289D8DE0096FD410 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -360,7 +352,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GeoChat/Pods-GeoChat-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BB2895EA3A80C639CF15D596 /* [CP] Embed Pods Frameworks */ = {
+		8C54E797B6FDD504F673B2F0 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -375,6 +367,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GeoChat-GeoChatTests/Pods-GeoChat-GeoChatTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E6BDF062A2AC9995D6B01DB0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GeoChat/Pods-GeoChat-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GeoChat/Pods-GeoChat-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GeoChat/Pods-GeoChat-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -429,9 +438,10 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 179DDC96A733BE9CB3E98E31 /* Pods-GeoChat-GeoChatTests.debug.xcconfig */;
+			baseConfigurationReference = D7B1B7AC523251CB062B73ED /* Pods-GeoChat-GeoChatTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 3Q9FQUUNM4;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -456,10 +466,11 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 82625D16141FDE0C8336CAE1 /* Pods-GeoChat-GeoChatTests.release.xcconfig */;
+			baseConfigurationReference = E4062FBA1E6C32101119C92C /* Pods-GeoChat-GeoChatTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 3Q9FQUUNM4;
 				INFOPLIST_FILE = GeoChatTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -480,12 +491,14 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6C477FF691F3D836B81349E9 /* Pods-GeoChat.debug.xcconfig */;
+			baseConfigurationReference = 17AC7263B881F1F9A944BD79 /* Pods-GeoChat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3Q9FQUUNM4;
 				ENABLE_BITCODE = NO;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				INFOPLIST_FILE = GeoChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -496,7 +509,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.sunwalker.GeoChat;
 				PRODUCT_NAME = GeoChat;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -506,11 +519,13 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 279985B004DFCD7CFF26AF35 /* Pods-GeoChat.release.xcconfig */;
+			baseConfigurationReference = 12DAC65AC71F1E2FFD0FC1FE /* Pods-GeoChat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3Q9FQUUNM4;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				INFOPLIST_FILE = GeoChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -521,7 +536,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.sunwalker.GeoChat;
 				PRODUCT_NAME = GeoChat;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

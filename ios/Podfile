@@ -23,7 +23,14 @@ target 'GeoChat' do
   # you should disable the next line.
   use_flipper!()
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
+  pre_install do |installer|
+    $RNMBGL.pre_install(installer)
+  end
+
   post_install do |installer|
+    $RNMBGL.post_install(installer)
     react_native_post_install(installer)
   end
 end
