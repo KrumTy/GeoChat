@@ -1,43 +1,54 @@
-import React from "react";
-import { StyleSheet, Text, ImageBackground } from "react-native";
+import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  ImageBackground,
+  TouchableHighlight,
+  Animated,
+} from 'react-native';
 
-import shoutFrames from "../../../static/shoutFrames";
+import shoutFrames from '../../../static/shoutFrames';
+import useScaleMarkerAnimations from './hooks/useScaleMarkerAnimations';
 
 type ItemProps = {
   frameId: number;
   text: string;
   zoomLevel?: number;
-}
+  onPress: () => void;
+};
 
-const zoomResize = (zoomLevel: number) => {
-  const scale = 1 + (Math.max(0, (zoomLevel - 14) / 5));
-  return {
-    transform: [{ scale: scale }]
-  };
-}
+export default ({frameId, text, zoomLevel = 14, onPress}: ItemProps) => {
+  const {zoomAnim, fadeAnim} = useScaleMarkerAnimations(zoomLevel);
 
-export default ({ frameId, text, zoomLevel = 14 }: ItemProps) => (
-  <ImageBackground 
-    resizeMode={"contain"}
-    style={[styles.backgroundImage, zoomResize(zoomLevel)]}
-    source={shoutFrames[frameId].source}
-  >
-    <Text style={[styles.text, shoutFrames[frameId].textStyle]} >
-      {text}
-    </Text>
-  </ImageBackground>
-);
+  return (
+    <Animated.View
+      style={[{opacity: fadeAnim, transform: [{scale: zoomAnim}]}]}>
+      <ImageBackground
+        resizeMode={'contain'}
+        style={[styles.backgroundImage]}
+        source={shoutFrames[frameId].source}>
+        <TouchableHighlight
+          onPress={onPress}
+          activeOpacity={0.5}
+          underlayColor="transparent">
+          <Text style={[styles.text, shoutFrames[frameId].textStyle]}>
+            {text}
+          </Text>
+        </TouchableHighlight>
+      </ImageBackground>
+    </Animated.View>
+  );
+};
 
 const styles = StyleSheet.create({
   backgroundImage: {
-    transform: [],
     width: 200,
     height: 100,
-    justifyContent: "center"
+    justifyContent: 'center',
   },
   text: {
     fontSize: 16,
     height: 40,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
 });

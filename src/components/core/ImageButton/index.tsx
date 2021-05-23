@@ -1,35 +1,36 @@
-import React from "react";
-import { StyleSheet, View, Image, TouchableOpacity, ImageSourcePropType, StyleProp, ViewStyle } from "react-native";
+import React from 'react';
+import {
+  StyleSheet,
+  View,
+  Image,
+  TouchableOpacity,
+  ImageSourcePropType,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 
 type Props = {
-  style?: StyleProp<ViewStyle>,
+  style?: StyleProp<ViewStyle>;
   source: ImageSourcePropType;
   aspectRatio?: number;
   onPress: () => void;
-}
+};
 
-export default ({ style, source, aspectRatio, onPress }: Props) => (
-  <TouchableOpacity style={[styles.buttonContainer, style]} onPress={onPress}>
-    <View style={styles.buttonView}>
-      <Image 
-        style={[styles.buttonImage, { aspectRatio }]}
-        source={source} 
-      />
-    </View>
-  </TouchableOpacity>
+export default ({style, source, aspectRatio = 1, onPress}: Props) => (
+  <View style={[styles.container, style]}>
+    <TouchableOpacity style={[styles.touchableArea]} onPress={onPress}>
+      <Image style={{transform: [{scale: aspectRatio}]}} source={source} />
+    </TouchableOpacity>
+  </View>
 );
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    alignItems: 'center',
-    justifyContent: 'center'
+  container: {
+    justifyContent: 'center',
   },
-  buttonView:  {
+  touchableArea: {
+    width: 0,
     position: 'absolute',
-    backgroundColor: 'transparent'
+    alignItems: 'center',
   },
-  buttonImage: {
-    // width: 70,
-    resizeMode: "contain"
-  }
 });

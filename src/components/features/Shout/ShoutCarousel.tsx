@@ -1,134 +1,124 @@
-import React, { useEffect, useState } from "react";
-import { Alert, StyleSheet, Text, View, Image, TextInput, ImageBackground, KeyboardAvoidingView, Platform } from "react-native";
+import React, {useState} from 'react';
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  ImageBackground,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
-import { BlurView } from "@react-native-community/blur";
-// @ts-ignore
-import InsetShadow from 'react-native-inset-shadow';
-import MapboxGL from "@react-native-mapbox-gl/maps";
+import MapboxGL from '@react-native-mapbox-gl/maps';
 
-import { useAppSelector, useAppDispatch } from "../../../state";
-import { addShout, selectShoutPoints } from "../../../state/reducers/shoutsSlice";
+import {useAppDispatch} from '../../../state';
+import {addShout} from '../../../state/reducers/shoutsSlice';
 
-import ImageButton from "../../core/ImageButton";
+import CONFIG from '../../../config';
 
-import shoutFrames, { ShoutFrame } from "../../../static/shoutFrames";
+import LightBlurView from '../../core/LightBlurView';
 
-import { Buttons } from "../../../images";
+import ImageButton from '../../core/ImageButton';
 
-const  { ButtonX, ButtonThunder, ButtonSpeaker } = Buttons;
+import shoutFrames, {ShoutFrame} from '../../../static/shoutFrames';
 
-type Props = {
-  text: string;
-  setText: (t: string) => void;
-}
-type ItemProps = {
-  item: ShoutFrame, 
-  index: number
-}
-const renderShoutItem = ({ text, setText }: Props) => ({ item, index }: ItemProps) => (
-  <View style={styles.slide}>
-      <ImageBackground 
-        resizeMode="contain"
-        style={styles.sliderImage}
-        source={item.source}>
-          <TextInput 
-              style={[styles.shoutInput2, item.textStyle]}        
-              maxLength={10}
-              value={text}
-              onChangeText={t => setText(t.toUpperCase())}
-              autoFocus={index === 0}
-          />
-      </ImageBackground>
-  </View>
-)
+import {Buttons} from '../../../images';
 
-const DEFAULT_SHOUT = "WAARGH!!";
+const {ButtonX, ButtonThunder} = Buttons;
+
+type ListItemProps = {
+  item: ShoutFrame;
+  index: number;
+};
 
 type ShoutCarouselProps = {
   mapElementRef: React.RefObject<MapboxGL.MapView>;
-  onClose: () => void
-}
+  onClose: () => void;
+};
 
-export default ({ mapElementRef, onClose }: ShoutCarouselProps) => {
-  // const shoutPoints = useAppSelector(selectShoutPoints);
+export default ({mapElementRef, onClose}: ShoutCarouselProps) => {
   const [slideIndex, setSlideIndex] = useState(0);
-  const [shoutText, setShoutText] = useState(DEFAULT_SHOUT);
+  const [shoutText, setShoutText] = useState(CONFIG.DEFAULT_SHOUT);
   const dispatch = useAppDispatch();
 
   const resetShout = () => {
-    setShoutText(DEFAULT_SHOUT);
+    setShoutText(CONFIG.DEFAULT_SHOUT);
     setSlideIndex(0);
     onClose();
-  }
+  };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
-      {/* <InsetShadow shadowRadius={20} shadowOpacity={1}> */}
-        <BlurView
-          style={styles.absolute}
-          blurType="light"
-          blurAmount={5}
-          reducedTransparencyFallbackColor="white"
-        />
-        <Carousel
-          // ref={(c) => { this._carousel = c; }}
-          data={shoutFrames}
-          renderItem={renderShoutItem({ text: shoutText, setText: setShoutText })}
-          onSnapToItem={setSlideIndex}
-          sliderWidth={400}
-          itemWidth={250}
-          layout="default"
-        />
-        <ImageButton 
-          style={styles.closeButton}
-          source={ButtonX} 
-          aspectRatio={0.33}
-          onPress={resetShout} 
-        />
-        <ImageButton 
-          style={styles.thunderButton}
-          source={ButtonThunder} 
-          aspectRatio={0.27}
-          onPress={async () => {
-            const centerCoords = await mapElementRef.current?.getCenter();
-            // TODO: use user coords: https://github.com/react-native-mapbox-gl/maps/blob/master/example/src/examples/UserLocationChange.js
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <LightBlurView />
+      <Carousel
+        // ref={(c) => { this._carousel = c; }}
+        data={shoutFrames}
+        renderItem={({item, index}: ListItemProps) => (
+          <View style={styles.slide}>
+            <ImageBackground
+              resizeMode="contain"
+              style={styles.sliderImage}
+              source={item.source}>
+              <TextInput
+                style={[styles.shoutInput, item.textStyle]}
+                maxLength={10}
+                value={shoutText}
+                onChangeText={t => setShoutText(t.toUpperCase())}
+                autoFocus={index === 0}
+              />
+            </ImageBackground>
+          </View>
+        )}
+        onSnapToItem={setSlideIndex}
+        sliderWidth={400}
+        itemWidth={250}
+        layout="default"
+      />
+      <ImageButton
+        style={styles.closeButton}
+        source={ButtonX}
+        aspectRatio={0.33}
+        onPress={resetShout}
+      />
+      <ImageButton
+        style={styles.thunderButton}
+        source={ButtonThunder}
+        aspectRatio={0.27}
+        onPress={async () => {
+          const centerCoords = await mapElementRef.current?.getCenter();
+          // TODO: use user coords: https://github.com/react-native-mapbox-gl/maps/blob/master/example/src/examples/UserLocationChange.js
 
-            if (centerCoords) {
-              dispatch(addShout({
+          if (centerCoords) {
+            dispatch(
+              addShout({
                 id: Date.now(),
-                frameId: slideIndex,
+                frameId: shoutFrames[slideIndex].id,
                 authorId: 0,
                 text: shoutText,
                 coordinates: centerCoords,
-                // comments: []
-              }));
-            }
+              }),
+            );
+          }
 
-            resetShout();
-          }} 
-        />
-      {/* </InsetShadow> */}
+          resetShout();
+        }}
+      />
     </KeyboardAvoidingView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
-    ...StyleSheet.absoluteFillObject
+    ...StyleSheet.absoluteFillObject,
+    alignItems: 'center',
   },
   sliderImage: {
     flex: 1,
-    justifyContent: "center"
+    justifyContent: 'center',
   },
-  image: {
+  slide: {
     flex: 1,
-    width: "100%",
-    resizeMode: 'contain'
-  },
-  carousel: {
-  },
-  slide :{
-    flex: 1
   },
   thunderButton: {
     bottom: 50,
@@ -137,18 +127,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 60,
     right: 20,
-    alignItems:"flex-end",
+    alignItems: 'flex-end',
   },
-  shoutInput2: {
+  shoutInput: {
     fontSize: 16,
     height: 40,
-    fontWeight: "bold",
-  },
-  absolute: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0
+    fontWeight: 'bold',
   },
 });

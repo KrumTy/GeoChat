@@ -1,125 +1,138 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Alert, StyleSheet, Text, View, Button, LayoutAnimation, Platform, UIManager } from "react-native";
-import MapboxGL from "@react-native-mapbox-gl/maps";
+import React, {useEffect, useRef, useState} from 'react';
+import {StyleSheet, View, Platform, UIManager} from 'react-native';
+import MapboxGL from '@react-native-mapbox-gl/maps';
 
-import { ShoutCarousel, ShoutMarker, ShoutPoints, ShoutComments, ShoutButton } from "../Shout"
-import ImageButton from "../../core/ImageButton";
+import {
+  ShoutCarousel,
+  ShoutMarker,
+  ShoutPoints,
+  ShoutComments,
+  ShoutButton,
+} from '../Shout';
 
-import { useAppSelector, useAppDispatch } from "../../../state";
-import { addShout, selectShoutPoints, selectShouts, resetShoutPoints, Shout } from "../../../state/reducers/shoutsSlice";
-import { loadShoutComments, selectSelectedShoutId } from "../../../state/reducers/commentsReducer";
+import {getRandomElement} from '../../../utils';
+import shoutFrames from '../../../static/shoutFrames';
+import shoutMessages from '../../../static/shoutMessages';
+import {useAppSelector, useAppDispatch} from '../../../state';
+import {
+  addShout,
+  selectShouts,
+  loadShoutPoints,
+  loadShouts,
+} from '../../../state/reducers/shoutsSlice';
+import CONFIG from '../../../config';
 
-import { Buttons } from "../../../images";
+import MenuButton from '../../core/MenuButton';
 
-import { Overlay } from "./types";
+import {selectUser} from '../../../state/reducers/userSlice';
 
-MapboxGL.setAccessToken("pk.eyJ1Ijoia3J1bXR5IiwiYSI6ImNrb3Z3ZmxiZjAwZnQycG1wempxZHJjcDkifQ.p2tzOLc-JPsWdYwC2kA2RA");
-
-const SOFIA_CENTER_COORDINATES = [23.321793482813433, 42.6976192959911];
-const DEFAULT_ZOOM_LEVEL = 14;
-const MARKER_MIN_ZOOM_LEVEL = 14;
-
-if (Platform.OS === 'android') {
-  if (UIManager.setLayoutAnimationEnabledExperimental) {
-    UIManager.setLayoutAnimationEnabledExperimental(true);
-  }
+enum Overlay {
+  ShoutIdle,
+  ShoutCarousel,
+  ShoutComments,
 }
 
 export default function () {
   const [overlay, setOverlay] = useState(Overlay.ShoutIdle);
-  const shoutPoints = useAppSelector(selectShoutPoints);
-  // const selectedShoutId = useAppSelector(selectSelectedShoutId);
+  const user = useAppSelector(selectUser);
   const mapElement = useRef<MapboxGL.MapView>(null);
-  // const [selectedShout, setSelectedShout] = useState<Shout>();
-  const [zoomLevel, setZoomLevel] = useState(DEFAULT_ZOOM_LEVEL);
+  const [selectedShoutId, setSelectedShoutId] = useState<number>();
+  const [zoomLevel, setZoomLevel] = useState(CONFIG.DEFAULT_ZOOM_LEVEL);
+  const disableShoutMarkers = zoomLevel < CONFIG.MARKER_MIN_ZOOM_LEVEL;
+  const shouts = useAppSelector(selectShouts);
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
+    MapboxGL.setAccessToken(CONFIG.MAPBOXGL_API_KEY);
     MapboxGL.locationManager.start();
+    dispatch(loadShouts([42.0, 69]));
+
+    if (Platform.OS === 'android') {
+      if (UIManager.setLayoutAnimationEnabledExperimental) {
+        UIManager.setLayoutAnimationEnabledExperimental(true);
+      }
+    }
 
     return (): void => {
       MapboxGL.locationManager.stop();
     };
   }, []);
-
-  // Alert.alert(selectedShoutId?.toString() || "null");
-  const shouts = useAppSelector(selectShouts);
-  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(loadShoutPoints(user.id));
+  }, [user.id]);
 
   return (
     <View style={styles.page}>
-        <MapboxGL.MapView 
-          onRegionDidChange={async (f) => {
-            const newZoomLevel = await mapElement.current?.getZoom();
-            if (newZoomLevel) {
-              setZoomLevel(newZoomLevel);
-            }
-          }}
-          ref={mapElement}
-          style={styles.map} 
-          // onPress={async (e) => {
-          //   const center: number[] | undefined = await mapElement.current?.getCenter();
-          //   Alert.alert(JSON.stringify(center))
-          // }}
-          onLongPress={e => {
-            if (zoomLevel < MARKER_MIN_ZOOM_LEVEL || shoutPoints < 3) return;
+      <MapboxGL.MapView
+        onRegionDidChange={async () => {
+          const newZoomLevel = await mapElement.current?.getZoom();
+          if (newZoomLevel) {
+            setZoomLevel(newZoomLevel);
+          }
+        }}
+        ref={mapElement}
+        style={styles.map}
+        onLongPress={e => {
+          if (disableShoutMarkers) {
+            return;
+          }
 
-            const point = (e.geometry as GeoJSON.Point);
-            // setMarkerCoords([...markerCoords, point]);
-            // Alert.alert(JSON.stringify(point.coordinates))
-            dispatch(addShout({
+          dispatch(
+            addShout({
               id: Date.now(),
-              frameId: 0,
-              authorId: 0,
-              text: "Yoooo",
-              coordinates: point.coordinates,
-              // comments: []
-            }));
-          }}
-          logoEnabled={false} 
-          compassEnabled={false}
-        >
-          <MapboxGL.Camera 
-            // followZoomLevel={DEFAULT_ZOOM_LEVEL} 
-            // followUserLocation
-            centerCoordinate={SOFIA_CENTER_COORDINATES}
-            zoomLevel={DEFAULT_ZOOM_LEVEL}
-            // bounds={{ne: [], sw: []}} 
-          />
-          {zoomLevel >= MARKER_MIN_ZOOM_LEVEL && shouts.map((s, i) => (
-            <MapboxGL.MarkerView key={i} id={i.toString()} coordinate={s.coordinates} 
-              onSelected={() => {
-                dispatch(loadShoutComments(s.id));
-                // setSelectedShout(s);
-                LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-                setOverlay(Overlay.ShoutComments);
-              }} // open chat
-            >
-              <ShoutMarker frameId={s.frameId} text={s.text} zoomLevel={zoomLevel} />
-              {/* <Text style={styles.markerText}>Marker</Text> */}
+              frameId: getRandomElement(shoutFrames).id,
+              authorId: user.id,
+              text: getRandomElement(shoutMessages),
+              coordinates: (e.geometry as GeoJSON.Point).coordinates,
+            }),
+          );
+        }}
+        logoEnabled={false}
+        compassEnabled={false}>
+        <MapboxGL.Camera
+          // followZoomLevel={DEFAULT_ZOOM_LEVEL}
+          // followUserLocation
+          centerCoordinate={CONFIG.MAP_CENTER_COORDINATES}
+          zoomLevel={CONFIG.DEFAULT_ZOOM_LEVEL}
+          // bounds={{ne: [], sw: []}}
+        />
+        {!disableShoutMarkers &&
+          shouts.map((s, i) => (
+            <MapboxGL.MarkerView
+              key={i}
+              id={i.toString()}
+              coordinate={s.coordinates}>
+              <ShoutMarker
+                frameId={s.frameId}
+                text={s.text}
+                zoomLevel={zoomLevel}
+                onPress={() => {
+                  setSelectedShoutId(s.id);
+                  setOverlay(Overlay.ShoutComments);
+                }}
+              />
             </MapboxGL.MarkerView>
           ))}
-          <MapboxGL.UserLocation />
-        </MapboxGL.MapView>
-        <ImageButton 
-          style={styles.hamburgerButton}
-          source={Buttons.ButtonHamburgerMenu} 
-          aspectRatio={0.4}
-          onPress={() => dispatch(resetShoutPoints())} 
+        <MapboxGL.UserLocation />
+      </MapboxGL.MapView>
+      <MenuButton />
+      <ShoutPoints />
+      {overlay === Overlay.ShoutIdle && (
+        <ShoutButton onPress={() => setOverlay(Overlay.ShoutCarousel)} />
+      )}
+      {overlay === Overlay.ShoutCarousel && (
+        // TODO: send user coords
+        <ShoutCarousel
+          mapElementRef={mapElement}
+          onClose={() => setOverlay(Overlay.ShoutIdle)}
         />
-        <ShoutPoints />
-        {overlay === Overlay.ShoutIdle && (
-          <ShoutButton onPress={() => setOverlay(Overlay.ShoutCarousel)} />
-        )}
-        {overlay === Overlay.ShoutCarousel && (
-          <ShoutCarousel mapElementRef={mapElement} onClose={() => setOverlay(Overlay.ShoutIdle)} />
-        )}
-        {overlay === Overlay.ShoutComments && (
-          <ShoutComments onClose={() => setOverlay(Overlay.ShoutIdle)} />
-        )}
-        {/* {selectedShout ? (
-          <ShoutComments />
-        ): (
-          <ShoutCarousel mapElementRef={mapElement} />
-        )} */}
+      )}
+      {overlay === Overlay.ShoutComments && selectedShoutId && (
+        <ShoutComments
+          shoutId={selectedShoutId!}
+          onClose={() => setOverlay(Overlay.ShoutIdle)}
+        />
+      )}
     </View>
   );
 }
@@ -127,27 +140,25 @@ export default function () {
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F5FCFF"
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   map: {
     flex: 1,
-    width: "100%",
+    width: '100%',
   },
   hamburgerButton: {
     position: 'absolute',
     top: 65,
     left: 30,
-    // alignItems:"flex-start",
   },
   markerText: {
-    backgroundColor: "red",
+    backgroundColor: 'red',
     borderWidth: 5,
-    borderColor: "skyblue",
-    overflow: "hidden",
+    borderColor: 'skyblue',
+    overflow: 'hidden',
     padding: 5,
-    color: "white",
-    borderRadius: 20
-  }
+    color: 'white',
+    borderRadius: 20,
+  },
 });

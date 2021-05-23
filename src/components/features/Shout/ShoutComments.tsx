@@ -1,97 +1,125 @@
-import React, { useState } from "react";
-import { KeyboardAvoidingView, Platform, StyleSheet, Text, View, TextInput, TouchableWithoutFeedback, Keyboard, Alert, ScrollView } from "react-native";
-import { BlurView } from "@react-native-community/blur";
+import React, {useEffect, useState} from 'react';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Alert,
+  ScrollView,
+  Image,
+  LayoutAnimation,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import { useAppDispatch, useAppSelector } from "../../../state";
-import { selectShoutPoints } from "../../../state/reducers/shoutsSlice";
-import ImageButton from "../../core/ImageButton";
-import { Buttons } from "../../../images";
-import { selectSelectedShoutId, selectComments, addShoutComment } from "../../../state/reducers/commentsReducer";
-import { selectUser } from "../../../state/reducers/userSlice";
-const  { ButtonX } = Buttons;
+import CONFIG from '../../../config';
+import {useAppDispatch, useAppSelector} from '../../../state';
+import ImageButton from '../../core/ImageButton';
+import {Buttons} from '../../../images';
+import {
+  selectComments,
+  addShoutComment,
+  loadShoutComments,
+  resetComments,
+} from '../../../state/reducers/commentsReducer';
+import {selectUser} from '../../../state/reducers/userSlice';
+import {formatCommentTimestamp} from '../../../utils';
+import LightBlurView from '../../core/LightBlurView';
 
 type Props = {
   onClose: () => void;
-}
+  shoutId: number;
+};
 
-export default ({ onClose }: Props) => {
-  const [commentText, setCommentText] = useState("");
-  const user = useAppSelector(selectUser);
-  const selectedShoutId = useAppSelector(selectSelectedShoutId);
-  const comments = useAppSelector(selectComments);
+export default ({onClose, shoutId}: Props) => {
   const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser);
+  const comments = useAppSelector(selectComments);
+  const [commentText, setCommentText] = useState('');
 
-  // if (comments.length > 1)
-  // Alert.alert(JSON.stringify(comments));
-  const comments2 = [{
-    id: 0,
-    text: "text"
-  }, {
-    id: 1,
-    text: "longer text"
-  }]
+  useEffect(() => {
+    dispatch(loadShoutComments(shoutId));
+
+    return () => {
+      dispatch(resetComments());
+    };
+  }, [shoutId]);
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
-      <BlurView
-        style={styles.absolute}
-        blurType="light"
-        blurAmount={5}
-        reducedTransparencyFallbackColor="white"
-      />
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <LightBlurView />
       <View style={styles.commentsList}>
         <View style={styles.commentsContainer}>
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.mapPreview} />
           </TouchableWithoutFeedback>
           <View style={styles.commentsListSection}>
             <View style={styles.topBar}>
-              <ImageButton 
+              <ImageButton
                 style={styles.closeButton}
-                source={ButtonX} 
+                source={Buttons.ButtonX}
                 aspectRatio={0.25}
-                onPress={onClose} 
+                onPress={onClose}
               />
             </View>
-
-            <ScrollView style={styles.commentsList} scrollEnabled={true} >
+            <ScrollView style={styles.commentsList} scrollEnabled={true}>
               {comments.map(c => (
                 <View key={c.id} style={styles.commentItem}>
                   <View style={styles.commentItemLeft}>
-                    <Icon name="smile-o" size={35} color="#000" style={styles.messageIcon} />
-                    <Text>16:00</Text>
+                    <View style={styles.messageIcon}>
+                      <Image
+                        source={{uri: c.authorAvatarUrl}}
+                        style={styles.messageAuthorAvatar}
+                      />
+                    </View>
+                    <Text>{formatCommentTimestamp(c.timestamp)}</Text>
                   </View>
                   <Text style={styles.commentItemRight}>{c.text}</Text>
                 </View>
               ))}
             </ScrollView>
-
             <View style={styles.messageBar}>
               <TextInput
                 value={commentText}
                 onChangeText={setCommentText}
-                placeholder={"Type a message here"} 
-                placeholderTextColor="white" 
+                placeholder={'Type a message here'}
+                placeholderTextColor="white"
                 style={styles.textBar}
+                maxLength={CONFIG.MAX_COMMENT_LENGTH}
                 multiline
               />
-              <Icon name="smile-o" size={35} color="#FFF" style={styles.messageIcon} 
-                onPress={() => Alert.alert("Not implemented.")}
+              <Icon
+                name="smile-o"
+                size={35}
+                color="#FFF"
+                onPress={() => Alert.alert('Not implemented.')}
               />
-              <Icon name="paper-plane" size={35} color="#FFF" style={styles.messageIcon} 
+              <Icon
+                name="paper-plane"
+                size={35}
+                color="#FFF"
+                style={styles.messageIcon}
                 onPress={() => {
                   const now = Date.now();
-                  dispatch(addShoutComment({
-                    id: now,
-                    shoutId: selectedShoutId!,
-                    authorId: user.id,
-                    timestamp: now,
-                    text: commentText
-                  }));
-                  setCommentText("");
-                }
-              }/>
+                  LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+                  dispatch(
+                    addShoutComment({
+                      id: now,
+                      shoutId: shoutId!,
+                      authorId: user.id,
+                      authorAvatarUrl: user.avatarUrl,
+                      timestamp: now,
+                      text: commentText,
+                    }),
+                  );
+                  setCommentText('');
+                }}
+              />
             </View>
           </View>
         </View>
@@ -102,40 +130,42 @@ export default ({ onClose }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    ...StyleSheet.absoluteFillObject
+    ...StyleSheet.absoluteFillObject,
   },
   commentsContainer: {
     flex: 1,
   },
   mapPreview: {
-    flex: 1
+    flex: 1,
   },
   topBar: {
     height: 25,
-    alignItems:"flex-end",
-    justifyContent: "center",
-    backgroundColor: "black"
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    backgroundColor: 'black',
   },
   closeButton: {
-    marginRight: 20
+    marginRight: 20,
   },
   commentItem: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: 'row',
+    marginBottom: 15,
   },
   commentItemLeft: {
-    alignItems: "center",
+    marginLeft: 10,
+    alignItems: 'center',
   },
   commentItemRight: {
-    backgroundColor: "black",
-    color: "white",
+    backgroundColor: 'black',
+    color: 'white',
     margin: 10,
     flexGrow: 1,
     padding: 5,
-    borderColor: "black",
+    borderColor: 'black',
     borderWidth: 1,
     borderRadius: 10,
-    overflow: "hidden"
+    overflow: 'hidden',
   },
   commentsList: {
     flex: 1,
@@ -146,35 +176,44 @@ const styles = StyleSheet.create({
     // paddingBottom: 20,
     flex: 1,
     height: 25,
-    color: "white",
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "center",
+    color: 'white',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
     minHeight: 30,
-    backgroundColor: "black"
+    backgroundColor: 'black',
   },
   messageIcon: {
-    margin: 10
+    // flex: 1,
+    // width: "5%",
+    // width: 50,
+    margin: 10,
+  },
+  messageAuthorAvatar: {
+    height: 50,
+    width: 50,
+    resizeMode: 'contain',
+    flex: 1,
   },
   textBar: {
     flexGrow: 1,
     fontSize: 16,
-    color: "white",
+    color: 'white',
     marginHorizontal: 10,
   },
   commentsListSection: {
-    flex: 1
+    flex: 1,
   },
   text: {
-    color: "grey",
-    fontWeight: "bold",
-    fontSize: 30
+    color: 'grey',
+    fontWeight: 'bold',
+    fontSize: 30,
   },
   absolute: {
-    position: "absolute",
+    position: 'absolute',
     top: 0,
     left: 0,
     bottom: 0,
-    right: 0
+    right: 0,
   },
 });

@@ -1,38 +1,36 @@
-import React from "react";
-import { Alert, StyleSheet, Text, View, Image, TextInput, ImageBackground, KeyboardAvoidingView, Platform } from "react-native";
+import React from 'react';
+import {StyleSheet} from 'react-native';
 
-import ImageButton from "../../core/ImageButton";
+import ImageButton from '../../core/ImageButton';
 
-import { Buttons } from "../../../images";
-import { useAppSelector } from "../../../state";
-import { selectShoutPoints } from "../../../state/reducers/shoutsSlice";
-
-const  { ButtonSpeaker } = Buttons;
+import {Buttons} from '../../../images';
+import {useAppSelector} from '../../../state';
+import {selectShoutPoints} from '../../../state/reducers/shoutsSlice';
 
 type Props = {
   onPress: () => void;
-}
+};
 
-export default ({ onPress }: Props) => {
+export default ({onPress}: Props) => {
   const shoutPoints = useAppSelector(selectShoutPoints);
   const disabled = shoutPoints < 1;
-  
+
   return (
-    <ImageButton 
+    <ImageButton
       style={disabled ? styles.speakerButtonDisabled : styles.speakerButton}
-      source={ButtonSpeaker} 
+      source={Buttons.ButtonSpeaker}
       aspectRatio={0.2}
-      onPress={() => !disabled && onPress()} 
+      onPress={() => !disabled && onPress()}
     />
   );
-}
+};
 
 const styles = StyleSheet.create({
   speakerButton: {
     bottom: 50,
   },
   speakerButtonDisabled: {
-    opacity: 0.5,
     bottom: 50,
-  }
+    opacity: 0.25,
+  },
 });

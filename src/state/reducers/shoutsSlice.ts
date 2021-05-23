@@ -1,12 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import type { RootState } from '../store'
-
-// type Comment = {
-//   id: number;
-//   authorId: number;
-//   timestamp: number;
-//   text: string;
-// }
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
+import type {RootState} from '../store';
+import {getDataByKey, setDataByKey} from '../localStorage';
 
 export type Shout = {
   id: number;
@@ -14,36 +8,79 @@ export type Shout = {
   authorId: number; // get avatar src from here
   text: string;
   coordinates: number[];
-  // comments: Comment[];
-}
+};
 
-// Define a type for the slice state
 interface ShoutsState {
   value: Shout[];
   shoutPoints: number;
 }
 
-// Define the initial state using that type
+const initialShoutPoints = 15;
+const pointsPerShout = 3;
+
 const initialState: ShoutsState = {
   value: [],
-  shoutPoints: 15
-}
+  shoutPoints: -1,
+};
+
+export const getShoutsStorageKey = () => 'shouts';
+const getShoutPointsStorageKey = (userId: number) =>
+  `shout-points-user-${userId}`;
+
+export const loadShouts = createAsyncThunk(
+  'loadShouts',
+  async (_coordinates: number[]) =>
+    (await getDataByKey<Shout[]>(getShoutsStorageKey())) || [],
+);
+
+export const loadShoutPoints = createAsyncThunk(
+  'loadShoutPoints',
+  async (userId: number) => {
+    const points = await getDataByKey<number>(getShoutPointsStorageKey(userId));
+    return points === null ? initialShoutPoints : points;
+  },
+);
+
+export const resetShoutPoints = createAsyncThunk(
+  'resetShoutPoints',
+  async (userId: number) => {
+    await setDataByKey(getShoutPointsStorageKey(userId), initialShoutPoints);
+    return initialShoutPoints;
+  },
+);
 
 export const shoutsSlice = createSlice({
   name: 'shouts',
   initialState,
   reducers: {
     addShout: (state, action: PayloadAction<Shout>) => {
-      state.value.push(action.payload);
-      state.shoutPoints -= 3;
-    },
-    resetShoutPoints: (state) => {
-      state.shoutPoints = 15;
-    }
-  },
-})
+      if (state.shoutPoints < pointsPerShout) {
+        return;
+      }
 
-export const { addShout, resetShoutPoints } = shoutsSlice.actions;
+      state.value.push(action.payload);
+      state.shoutPoints -= pointsPerShout;
+      setDataByKey(getShoutsStorageKey(), state.value);
+      setDataByKey(
+        getShoutPointsStorageKey(action.payload.authorId),
+        state.shoutPoints,
+      );
+    },
+  },
+  extraReducers: builder => {
+    builder.addCase(loadShouts.fulfilled, (state, action) => {
+      state.value = action.payload;
+    });
+    builder.addCase(loadShoutPoints.fulfilled, (state, action) => {
+      state.shoutPoints = action.payload;
+    });
+    builder.addCase(resetShoutPoints.fulfilled, (state, action) => {
+      state.shoutPoints = action.payload;
+    });
+  },
+});
+
+export const {addShout} = shoutsSlice.actions;
 
 export const selectShouts = (state: RootState) => state.shouts.value;
 export const selectShoutPoints = (state: RootState) => state.shouts.shoutPoints;
